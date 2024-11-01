@@ -1,0 +1,2 @@
+# ping
+Globalping Status API
