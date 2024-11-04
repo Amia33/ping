@@ -20,10 +20,11 @@ jobs:
       - name: Perform Measure
         env:
           TARGETS: ${{ secrets.TARGETS }}
-          CONN_STR: ${{ secrets.CONN_STR }}
+          MONGODB_STR: ${{ secrets.MONGODB_STR }}
+          GLOBALPING_APIKEY: ${{ secrets.GLOBALPING_APIKEY }}
         run: |
           started=$(date -u +%Y-%m-%dT%T.%3NZ)
-          python scripts/measure.py
+          python scripts/index.py
           ended=$(date -u +%Y-%m-%dT%T.%3NZ)
           sed -E -e "s/\|\sMeasure\s\|(.*)\|(.*)\|/\| Measure \| $started \| $ended \|/" README.md > README.md.new
           rm README.md
