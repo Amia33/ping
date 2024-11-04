@@ -1,0 +1,8 @@
+version: 2
+updates:
+  - package-ecosystem: 'pip'
+    directory: 'scripts/'
+    schedule:
+      interval: 'daily'
+      time: '10:47'
+      timezone: 'Etc/UTC'

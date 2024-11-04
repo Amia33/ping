@@ -1,0 +1,31 @@
+name: 'CodeQL'
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'scripts/**'
+  schedule:
+    - cron: '27 20 * * *'
+  workflow_dispatch:
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+          build-mode: none
+          config: |
+            paths:
+              - scripts
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:python'

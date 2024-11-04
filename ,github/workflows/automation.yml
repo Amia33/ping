@@ -1,0 +1,37 @@
+name: 'Automation'
+on:
+  schedule:
+    - cron: '4/5 * * * *'
+  workflow_dispatch:
+jobs:
+  automation:
+    name: Automation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - name: Install Python Dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Perform Measure
+        env:
+          TARGETS: ${{ secrets.TARGETS }}
+          CONN_STR: ${{ secrets.CONN_STR }}
+        run: |
+          started=$(date -u +%Y-%m-%dT%T.%3NZ)
+          python scripts/measure.py
+          ended=$(date -u +%Y-%m-%dT%T.%3NZ)
+          sed -E -e "s/\|\sMeasure\s\|(.*)\|(.*)\|/\| Measure \| $started \| $ended \|/" README.md > README.md.new
+          rm README.md
+          mv README.md.new README.md
+      - name: Commit changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m 'Automation Update'
+          git push
