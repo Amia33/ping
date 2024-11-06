@@ -10,4 +10,4 @@ Globalping now has a limit of 500 tests/hour, so a new repo is set.
 
 |  Task   |         Started          |          Ended           |
 | :-----: | :----------------------: | :----------------------: |
-| Measure | 2024-11-06T11:49:38.391Z | 2024-11-06T11:50:03.949Z |
+| Measure | 2024-11-06T12:13:35.840Z | 2024-11-06T12:13:57.436Z |
